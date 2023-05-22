@@ -29,6 +29,11 @@
 			<version>6.13.0</version>
 		</dependency>
 		<dependency>
+			<groupId>com.github.fabiomaffioletti</groupId>
+			<artifactId>spring-boot-starter-data-firebase</artifactId>
+			<version>1.0.0.RELEASE</version>
+		</dependency>
+		<dependency>
 			<groupId>com.google.firebase</groupId>
 			<artifactId>firebase-admin</artifactId>
 			<version>8.0.0</version>
