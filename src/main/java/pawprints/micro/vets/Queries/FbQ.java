@@ -1,15 +1,16 @@
 package pawprints.micro.vets.Queries;
 
+import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import pawprints.micro.vets.Entity.Vets;
 import pawprints.micro.vets.Repository.VetRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
 @Component
@@ -42,6 +43,20 @@ public class FbQ implements VetRepository {
         dbFirestore.collection(COLLECTION_NAME).add(vet);
         System.out.println("Se agregó un nuevo dato a la colección");
     }
+
+    public Optional<Vets> findById(Integer id) throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        DocumentSnapshot document = dbFirestore.collection(COLLECTION_NAME).document(String.valueOf(id)).get().get();
+        if (document.exists()) {
+            Vets vet = document.toObject(Vets.class);
+            assert vet != null;
+            return Optional.of(vet);
+        } else {
+            return Optional.empty();
+        }
+    }
+
+
 
 
 }
